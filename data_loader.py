@@ -18,3 +18,10 @@ def load_and_chunk_pdf(path: str):
     for t in texts:
         chunks.extend(splitter.split_text(t))
     return chunks
+
+def embed_texts(texts: list[str]) -> list[list[float]]:
+    response = client.embeddings.create(
+        model=EMBED_MODEL,
+        input=texts,
+    )
+    return [item.embedding for item in response.data]
